@@ -1504,14 +1504,15 @@ In this task, you will validate the ability to restore the Contoso application d
 
 12. [We could generate a script from the resoterd db and add the data to the current db](https://stackoverflow.com/a/10030385/5212904)
 
-    ![Screenshot showing the restored database in SQL Server Management Studio.](images/v-bk-sql8.png "Restored database")
-    ![Screenshot showing the restored database in SQL Server Management Studio.](images/v-bk-sql9.png "Restored database")
-    ![Screenshot showing the restored database in SQL Server Management Studio.](images/v-bk-sql10.png "Restored database")
-    ![Screenshot showing the restored database in SQL Server Management Studio.](images/v-bk-sql11.png "Restored database")
-    ![Screenshot showing the restored database in SQL Server Management Studio.](images/v-bk-sql12.png "Restored database")
-    ![Screenshot showing the restored database in SQL Server Management Studio.](images/v-bk-sql13.png "Restored database")
-    ![Screenshot showing the restored database in SQL Server Management Studio.](images/v-bk-sql14.png "Restored database")
-    ![Screenshot showing the restored database in SQL Server Management Studio.](images/v-bk-sql15.png "Restored database")
+    ![Screenshot showing the restored database in SQL Server Management Studio.](images/v-bk-sql8.png "Generate Script from restored DB p1")
+    ![Screenshot showing the restored database in SQL Server Management Studio.](images/v-bk-sql9.png "Generate Script from restored DB p2")
+    ![Screenshot showing the restored database in SQL Server Management Studio.](images/v-bk-sql10.png "Generate Script from restored DB p3")
+    ![Screenshot showing the restored database in SQL Server Management Studio.](images/v-bk-sql11.png "Generate Script from restored DB p4")
+    ![Screenshot showing the restored database in SQL Server Management Studio.](images/v-bk-sql12.png "Generate Script from restored DB p5")
+    ![Screenshot showing the restored database in SQL Server Management Studio.](images/v-bk-sql13.png "Generate Script from restored DB p6")
+    Delete Dependents, People and PolicyHolders Tables
+    ![Screenshot showing the restored database in SQL Server Management Studio.](images/v-bk-sql14.png "Delete previous tables")
+    ![Screenshot showing the restored database in SQL Server Management Studio.](images/v-bk-sql15.png "Insert data into main DB")
 
 
 ## After the hands-on lab

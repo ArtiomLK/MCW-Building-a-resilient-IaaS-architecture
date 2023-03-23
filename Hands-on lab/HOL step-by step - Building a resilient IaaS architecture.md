@@ -1511,10 +1511,10 @@ In this task, you will validate the ability to restore the Contoso application d
     - ![Screenshot showing the restored database in SQL Server Management Studio.](images/v-bk-sql10.png "Generate Script from restored DB p3")
     - ![Screenshot showing the restored database in SQL Server Management Studio.](images/v-bk-sql11.png "Generate Script from restored DB p4")
     - ![Screenshot showing the restored database in SQL Server Management Studio.](images/v-bk-sql12.png "Generate Script from restored DB p5")
+    - ![Screenshot showing the restored database in SQL Server Management Studio.](images/v-bk-sql13.png "Generate Script from restored DB p6")
 
     Delete Dependents, People and PolicyHolders Tables
 
-    - ![Screenshot showing the restored database in SQL Server Management Studio.](images/v-bk-sql13.png "Generate Script from restored DB p6")
     - ![Screenshot showing the restored database in SQL Server Management Studio.](images/v-bk-sql14.png "Delete previous tables")
     - ![Screenshot showing the restored database in SQL Server Management Studio.](images/v-bk-sql15.png "Insert data into main DB")
 

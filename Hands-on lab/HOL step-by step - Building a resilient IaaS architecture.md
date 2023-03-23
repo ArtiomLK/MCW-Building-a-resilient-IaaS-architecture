@@ -1502,6 +1502,18 @@ In this task, you will validate the ability to restore the Contoso application d
 
     > **Note**: You can now either copy data from the restored database to the production database or add this database to the Always On Availability Group and switch the Web tier to use the restored database.
 
+12. [We could generate a script from the resoterd db and add the data to the current db](https://stackoverflow.com/a/10030385/5212904)
+
+    ![Screenshot showing the restored database in SQL Server Management Studio.](images/v-bk-sql8.png "Restored database")
+    ![Screenshot showing the restored database in SQL Server Management Studio.](images/v-bk-sql9.png "Restored database")
+    ![Screenshot showing the restored database in SQL Server Management Studio.](images/v-bk-sql10.png "Restored database")
+    ![Screenshot showing the restored database in SQL Server Management Studio.](images/v-bk-sql11.png "Restored database")
+    ![Screenshot showing the restored database in SQL Server Management Studio.](images/v-bk-sql12.png "Restored database")
+    ![Screenshot showing the restored database in SQL Server Management Studio.](images/v-bk-sql13.png "Restored database")
+    ![Screenshot showing the restored database in SQL Server Management Studio.](images/v-bk-sql14.png "Restored database")
+    ![Screenshot showing the restored database in SQL Server Management Studio.](images/v-bk-sql15.png "Restored database")
+
+
 ## After the hands-on lab
 
 ### Task 1: Delete the lab resources

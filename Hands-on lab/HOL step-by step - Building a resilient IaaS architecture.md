@@ -480,18 +480,11 @@ In this task, you will deploy the resources used by the DR environment. First, y
     You can proceed to the following tasks while the template deployment is in progress.
 
     ```PowerShell
-    New-AzResourceGroup -Name 'ContosoRG2' -Location 'East US 2'
-
-    $plainText = "someRandomPass!"
-    $secureString = ConvertTo-SecureString $plainText -AsPlainText -Force
+    New-AzResourceGroup -Name 'ContosoRG2' -Location 'CENTRAL US'
 
     New-AzSubscriptionDeployment -Name 'Contoso-IaaS-DR' `
-        -TemplateUri 'https://raw.githubusercontent.com/microsoft/MCW-Building-a-resilient-IaaS-architecture/master/Hands-on%20lab/Resources/templates/contoso-iaas-dr.json' `
-        -Location 'East US 2'
-        -PrimaryRG 'ContosoRG1' `
-        -SecondaryRG 'ContosoRG2' `
-        -adminUsername 'artiomlk' `
-        -adminPassword $secureString
+        -TemplateFile .\Hands-on lab\Resources\templates\contoso-iaas-dr.json `
+        -Location 'Central US'
     ```
 
     > **Note**: If your deployment fails with an error *`"The requested size for resource '<resourceID>' is currently not available"`*, add the parameter `-skuSizeVM 'D2s_v5'` to the end of the `New-AzSubscriptionDeployment` and rerun the command:
@@ -533,9 +526,37 @@ In this task, you will deploy the resources used by the DR environment. First, y
 
     > **Important**: Next, you will set up the Azure Automation account that will be used to automate certain failover and failback tasks. This will require several PowerShell scripts to be imported as Azure Automation runbooks. **Be sure to execute the following steps from the LabVM since that is where the scripts are located.**
 
-8. From the Azure portal, select **+Create a resource**, followed by **IT & Management Tools**, then **Automation**.
+8. From the Azure portal, select **+Create a resource**, followed by **Storage**, then **Storage Account**.
 
-9. Complete the **Add Automation Account** blade using the following inputs and then select **Review + Create** followed by **Create**:
+9. Create a Storage Account to store the scripts required for the Azure Automation account. Use the following command to create the storage account:
+
+    ```PowerShell
+    New-AzStorageAccount -ResourceGroupName 'ContosoRG2' -Name 'stlabdrscripts' -Location 'Central US' -SkuName 'Standard_LRS'
+    ```
+
+    > **Note**: If you receive an error that the storage account name is not unique, try using a different name.
+
+10. Enable the **Blob public access** setting on the storage account to allow the scripts to be accessed by the Azure Automation account. Enable Anonymous access to **Blob** and **Container** level.
+
+    ![Screenshot configuring anonymous access on Storage Account](images/st-public-access.png)
+
+11. Create the `building-resilient-iaas-architecture` container in the storage account to store the scripts. Change the Access level to make it publicly accessible.
+
+    ![Screenshot creating a container and changing access level](images/st-public-access-container.png)
+
+    ![Screenshot creating a container and changing access level](images/st-public-access-container-2.png)
+
+12. Upload the following data to the container
+
+    ![Screnshot uploading scripts to Storage Account Container](images/st-public-access-container-data.png)
+
+    > **Note**: If you receive an error that you do not have access. Assign yourself the **Storage Blob Data Contributor** role on the storage account.
+
+13. Update the `ASRRunBookSQL.ps1` with the new storage account base uri, `$scriptBaseUri = "https://stlabdrscripts.blob.core.windows.net/building-resilient-iaas-architecture/Resources/scripts"`. You could try to access some scripts `https://stlabdrscripts.blob.core.windows.net/building-resilient-iaas-architecture/Resources/scripts/ASRFailOverSQLVM2.ps1`
+
+14. From the Azure portal, select **+Create a resource**, followed by **IT & Management Tools**, then **Automation**.
+
+15. Complete the **Add Automation Account** blade using the following inputs and then select **Review + Create** followed by **Create**:
 
     - **Name**: Enter a Globally unique name starting with `BCDR`.
     - **Resource group**: Use existing / **ContosoRG2**
@@ -545,47 +566,47 @@ In this task, you will deploy the resources used by the DR environment. First, y
 
     > **Note**: Azure Automation accounts are only allowed to be created in certain Azure regions, but they can act on any region in Azure (except Government, China, or Germany). It is not required to have your Azure Automation account in the same region as the failover resources, but it **CANNOT** be in your primary region.
 
-10. Once the Azure automation account has been created, select **Run as accounts** under **Account Settings**. Then, select **Create** under **Azure Run as Account**.
+16. Once the Azure automation account has been created, select **Identity** under **Account Settings**. Then, enable System Assigned Managed Identity.
 
-    ![Screenshot of the Azure Automation account first selecting Run as accounts under Account Settings, then selecting Create under Azure Run As Account.](images/dr-aa-runas.png "Azure Automation Run As Accounts")
+    ![Screenshot of the Azure Automation account first enable System Assigned Managed Identity on the Automation Account](images/dr-aa-id.png)
 
-11. Select Create. Once the deployment has finished, you'll have a new Azure Run As Account listed with an expiration date.
+17. In Identity Select Azure Role Assignment and assign contributor role to the Automation Account on the Primary and Secondary resource groups.
 
-    ![Screenshot of the new Azure Run As Account created with an expiration date.](images/dr-aa-runascreated.png "Azure Automation Run as accounts")
+    ![Screenshot of the new Azure Run As Account with contributor rbac on the primary and secondary resource groups](images/dr-aa-id-rbac.png)
 
-12. Open the account and select **Modules** under **Shared Resources**.
+18. Open the account and select **Modules** under **Shared Resources**.
 
     ![Under Shared Resources, Modules is selected.](images/image46.png "Shared Resources section")
 
-13. When the Modules load, search for and select **Az.Accounts**, then select **Import**, then **OK**.
+19. When the Modules load, search for and select **Az.Accounts**, then select **Import**, then **OK**.
 
     ![Screenshot showing the Az.Accounts module.](images/dr-azacc.png "Az.Accounts module")
 
     ![Import is selected for the Az.Accounts module.](images/dr-azaccimp.png "Az.Accounts import button")
 
-14. It will take a few minutes to import the module. From the Recovery Services Vault blade, select **Modules** to view the current status and **Refresh** to monitor progress.
+20. It will take a few minutes to import the module. From the Recovery Services Vault blade, select **Modules** to view the current status and **Refresh** to monitor progress.
 
     ![In the Automation Account blade, under Shared Resources, Modules is selected. The Az.Accounts module has the status 'Importing'.](images/dr-azaccstatus.png "Modules blade")
 
-15. Once the Az.Accounts module has been imported; repeat the above steps to import the **Az.Network** and **Az.Compute** modules.
+21. Once the Az.Accounts module has been imported; repeat the above steps to import the **Az.Network** and **Az.Compute** modules.
 
-16. Next, navigate back to the **Azure Automation Account** blade and select **Runbooks**, then select **Import a runbook**.
+22. Next, navigate back to the **Azure Automation Account** blade and select **Runbooks**, then select **Import a runbook**.
 
     ![The 'Import a runbook' button is highlighted in Azure Automation.](images/dr-rbimp.png "Import a runbook button")
 
     > **Note**: You must be connected to the **LABVM** to complete the next steps.
 
-17. Select the **Folder** icon on the Import blade and select the file **ASRRunbookSQL.ps1** from the `C:\HOL\` directory on the **LABVM**. Set the Runbook type to **PowerShell Workflow**. Update the name to **ASRSQLFailover**. This is the name of the Workflow inside the Runbook script. Leave everything else set to the default. Select **Import**.
+23. Select the **Folder** icon on the Import blade and select the file **ASRRunbookSQL.ps1** from the `C:\HOL\` directory on the **LABVM**. Set the Runbook type to **PowerShell Workflow**. Update the name to **ASRSQLFailover**. This is the name of the Workflow inside the Runbook script. Leave everything else set to the default. Select **Import**.
 
     ![Fields in the 'Import a runbook' blade are set to the previously defined values.](images/dr-rbimp2.png "Import a runbook")
 
-18. Once the Runbook is imported, the runbook editor will load. You can review the comments to understand the runbook better if you wish. Once you are ready, select **Publish**, followed by **Yes** at the confirmation prompt. This makes the runbook available for use.
+24. Once the Runbook is imported, the runbook editor will load. You can review the comments to understand the runbook better if you wish. Once you are ready, select **Publish**, followed by **Yes** at the confirmation prompt. This makes the runbook available for use.
 
     ![On the top menu of the Edit PowerShell Workflow Runbook blade, Publish is selected.](images/dr-rbpub.png "Publish runbook")
 
-19. Repeat the above steps to import and publish the **ASRRunbookWEB.ps1** runbook. Name this runbook **ASRWEBFailover**.
+25. Repeat the above steps to import and publish the **ASRRunbookWEB.ps1** runbook. Name this runbook **ASRWEBFailover**.
 
-20. . Navigate back to **Runbooks**, and make sure that both Runbooks show as **Published**.
+26. . Navigate back to **Runbooks**, and make sure that both Runbooks show as **Published**.
 
     ![Two runbooks have authoring status as published: ASRSQLFailover, and ASRWEBFailover.](images/image70.png "Runbooks")
 
@@ -593,11 +614,11 @@ In this task, you will deploy the resources used by the DR environment. First, y
 
     Next, you will create a variable in Azure Automation that contains settings (such as resource group names and VM names) that describe your environment. This information is required by the runbooks you imported. Using variables allows you to avoid hard-coding this information in the runbooks themselves.
 
-21. In your Azure Automation account, select **Variables**, then **Add a variable**.
+27. In your Azure Automation account, select **Variables**, then **Add a variable**.
 
     ![Azure portal showing variables pane in Azure Automation.](images/dr-addvar.png "Add a variable")
 
-22. In the **New Variable** blade, enter `BCDRIaaSPlan` as the variable name. The variable type should be **String**. Paste the following into the variable **Value**, then select **Create**.
+28. In the **New Variable** blade, enter `BCDRIaaSPlan` as the variable name. The variable type should be **String**. Paste the following into the variable **Value**, then select **Create**.
 
     ```json
     {
@@ -619,11 +640,11 @@ In this task, you will deploy the resources used by the DR environment. First, y
 
     ![The 'New Variable' blade is filled with the variable name and value.](images/dr-newvar.png "New Variable")
 
-23. Notice that the variable **BCDRIaaSPlan** has been created.
+29. Notice that the variable **BCDRIaaSPlan** has been created.
 
     ![The 'BCDRIaaSPlan' variable is shown in the Automation Account.](images/dr-var.png "Automation Account variables")
 
-24. Before continuing, check that the template deployment you started at the beginning of this task has been completed successfully. Then, from the Azure portal home page, select **Subscriptions**, select your subscription, then select **Deployments**.
+30. Before continuing, check that the template deployment you started at the beginning of this task has been completed successfully. Then, from the Azure portal home page, select **Subscriptions**, select your subscription, then select **Deployments**.
 
     ![The 'Contoso-IaaS-DR' template deployment shows as successful.](images/dr-deploy-ok.png "Template status")
 
@@ -1131,6 +1152,9 @@ Before enabling Azure Backup, you will first register the SQL Server VMs with th
 2. Unless you have done so previously, you will need to register your Azure subscription to use the `Microsoft.SqlVirtualMachine` resource provider. In the Cloud Shell window, execute the following command:
 
     ```PowerShell
+    # Change the subscription ID to your subscription ID if necessary
+    Set-AzContext -Subscription <sub_id>
+
     Register-AzResourceProvider -ProviderNamespace Microsoft.SqlVirtualMachine
     ```
 
@@ -1141,7 +1165,7 @@ Before enabling Azure Backup, you will first register the SQL Server VMs with th
 3. Register **SQLVM1** with the resource provider by executing the following command in the Cloud Shell window. Ensure that **-Location** matches the location SQLVM1 is deployed.
 
     ```PowerShell
-    New-AzSqlVM -Name 'SQLVM1' -ResourceGroupName 'ContosoRG1' -SqlManagementType Full -Location 'Central US' -LicenseType PAYG
+    New-AzSqlVM -Name 'SQLVM1' -ResourceGroupName 'ContosoRG1' -SqlManagementType Full -Location 'Mexico Central' -LicenseType PAYG
     ```
 
     ![Azure Cloud Shell screenshot showing the SQL Virtual Machine resource being created for SQLVM1.](images/bk-sql-rp2.png "Register resource provider")
@@ -1151,8 +1175,8 @@ Before enabling Azure Backup, you will first register the SQL Server VMs with th
 4. Register **SQLVM2** and **SQLVM3** with the resource provider using the following commands. Ensure you specify the correct locations.
 
     ```PowerShell
-    New-AzSqlVM -Name 'SQLVM2' -ResourceGroupName 'ContosoRG1' -SqlManagementType Full -Location 'Central US' -LicenseType PAYG
-    New-AzSqlVM -Name 'SQLVM3' -ResourceGroupName 'ContosoRG2' -SqlManagementType Full -Location 'East US 2' -LicenseType PAYG
+    New-AzSqlVM -Name 'SQLVM2' -ResourceGroupName 'ContosoRG1' -SqlManagementType Full -Location 'Mexico Central' -LicenseType PAYG
+    New-AzSqlVM -Name 'SQLVM3' -ResourceGroupName 'ContosoRG2' -SqlManagementType Full -Location 'Central US' -LicenseType PAYG
     ```
 
     > **Note**: This lab uses SQL Server under a 'Developer' tier license. When using SQL Server in production at the 'Standard' or 'Enterprise' tier, you can specify `DR` as the license type for failover servers (each full-price server includes a license for 1 DR server). The DR license type reduces your licensing cost significantly. Check the SQL Server licensing documentation for full details.
@@ -1169,7 +1193,7 @@ Before enabling Azure Backup, you will first register the SQL Server VMs with th
 
 7. In the Azure portal, navigate to the **BackupRSV** Recovery Services Vault resource in **ContosoRG1**. Under 'Getting started', select **Backup**. Under 'Where is your workload running?', select **Azure**. Under 'What do you want to backup?', select **SQL Server in Azure VM**. Then select **Start Discovery**.
 
-   ![Azure portal screenshot showing the Getting Started - Backup blade of the Azure Portal, with 'SQL Server in Azure VM' selected.](images/bk-sql1.png "Backup SQL Server in Azure VM")
+   ![Azure portal screenshot showing the Getting Started - Backup blade of the Azure Portal, with 'SQL Server in Azure VM' selected.](images/bk-sql1-v2.png "Backup SQL Server in Azure VM")
 
 8. In the 'Select Virtual Machines' blade, select **SQLVM1** and **SQLVM2**, then select **Discover DBs**.
 
@@ -1339,7 +1363,21 @@ In this task, you will validate the failover of the Contoso application from Cen
 
     ![Recovery Plan blade with Re-protect button highlighted.](images/v-dr13.png "Re-protect button")
 
-18. On the **Re-protect** screen, review the configuration and select **OK**.
+18. On the **Re-protect** screen, review the configuration and select **OK**. The Azure Site Recovery re-protect does the following:
+
+    Re-protecting your virtual machines in Azure Site Recovery is an important step after a failover. Here's what it does:
+
+    1. **Replication Setup**: Re-protection sets up replication from the secondary region (where your VMs are currently running) back to the primary region. This ensures that any changes made to the VMs in the secondary region are continuously replicated to the primary region[1](https://learn.microsoft.com/en-us/azure/site-recovery/azure-to-azure-how-to-reprotect).
+
+    2. **Data Consistency**: During the re-protection process, the latest data from the secondary region is seeded to the primary region. This helps maintain data consistency between the two regions[1](https://learn.microsoft.com/en-us/azure/site-recovery/azure-to-azure-how-to-reprotect).
+
+    3. **Failback Preparation**: Once re-protection is complete and replication is established, you can initiate a failback to the primary region. This means you can switch your VMs back to the primary region when it's ready[1](https://learn.microsoft.com/en-us/azure/site-recovery/azure-to-azure-how-to-reprotect).
+
+    4. **Customization Options**: You can customize various settings during re-protection, such as the target resource group, virtual network, storage accounts, and capacity reservations[1](https://learn.microsoft.com/en-us/azure/site-recovery/azure-to-azure-how-to-reprotect).
+
+    In summary, re-protection ensures that your VMs are ready to be failed back to the primary region, maintaining data integrity and minimizing downtime.
+
+    If you have any specific questions about the process or need further assistance, feel free to ask!
 
     ![Screenshot of the Re-protect blade.](images/v-dr14.png "Re-protect blade")
 

@@ -1417,6 +1417,10 @@ In this task, you will failback the Contoso application from the DR site in your
 
     ![The recovery plan shows 2 VMs in the Source and 0 in the target. The 'Re-protect' button is highlighted.](images/v-dr19.png "BCDRIaaSPlan")
 
+    > **Note**: If you get an error such as The storage account 'htl44dbcdrrsvasrcache' provided does not allow key based authentication. Allow Storage Account key Access
+
+    ![Screenshot enabling Store Account key access](images/asr-reprotectvm-st-key.png)
+
 8. As previously, the portal will submit a deployment. This process will take some time. You can proceed with the lab without waiting.
 
 9. Next, you need to reset the SQL Always On Availability Group environment to ensure a proper failover. Use Azure Bastion to connect to **SQLVM1** with username `demouser@contoso.com` and password `Demo!pass123`.

@@ -1,4 +1,4 @@
-![Microsoft Cloud Workshops](https://github.com/Microsoft/MCW-Template-Cloud-Workshop/raw/main/Media/ms-cloud-workshop.png "Microsoft Cloud Workshops")
+![Microsoft Cloud Workshops](https://github.com/artiomlk/MCW-Template-Cloud-Workshop/raw/main/Media/ms-cloud-workshop.png "Microsoft Cloud Workshops")
 
 <div class="MCWHeader1">
 Building a resilient IaaS architecture
@@ -33,7 +33,7 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/en-us/legal/in
     - [Task 3: Wait for deployments to complete, and validate](#task-3-wait-for-deployments-to-complete-and-validate)
   - [Summary](#summary)
 
-# Building a resilient IaaS architecture before the hands-on lab setup guide 
+# Building a resilient IaaS architecture before the hands-on lab setup guide
 
 ## Requirements
 
@@ -53,16 +53,25 @@ In this exercise, you deploy a Lab VM needed to complete the rest of your lab.
 
 In this task, you will use an Azure Resource Manager template to deploy the LabVM virtual machine. This machine will be pre-configured with Visual Studio 2019 Community Edition, has Azure PowerShell pre-installed, and is pre-loaded with any additional files which you will use during the lab.
 
-1. Select the **Deploy to Azure** button below to open the Azure portal and launch the template deployment for the LabVM. Log in to the Azure portal using your subscription credentials if prompted to do so.
+1. ~~Select the **Deploy to Azure** button below to open the Azure portal and launch the template deployment for the LabVM. Log in to the Azure portal using your subscription credentials if prompted to do so.~~ Better Deploy it locally using PowerShell.
 
-    [![Button to deploy the LabVM template to Azure.](https://aka.ms/deploytoazurebutton "Deploy the LabVM template to Azure")](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2FMCW-Building-a-resilient-IaaS-architecture%2Fmaster%2FHands-on%20lab%2FResources%2Ftemplates%2Flab-vm.json)
+    [![Button to deploy the LabVM template to Azure.](https://aka.ms/deploytoazurebutton "Deploy the LabVM template to Azure")](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fartiomlk%2FMCW-Building-a-resilient-IaaS-architecture%2Fmaster%2FHands-on%20lab%2FResources%2Ftemplates%2Flab-vm.json)
 
-    > **Note**: If you attempt to deploy the template above and it fails, stating "requested size for resource *\<resourceID\>* is currently not available in location", you can choose a different VM size from the first screen of the deployment. 
+    ```PowerSHell
+    New-AzResourceGroup -Name 'LabRG' -Location 'Mexico Central'
+
+    New-AzResourceGroupDeployment `
+    -ResourceGroupName 'LabRG' `
+    -Name 'Contoso-Lab-VM' `
+    -TemplateFile '.\Hands-on lab\Resources\templates\lab-vm.json'
+    ```
+
+    > **Note**: If you attempt to deploy the template above and it fails, stating "requested size for resource *\<resourceID\>* is currently not available in location", you can choose a different VM size from the first screen of the deployment.
 
 2. Complete the Custom deployment blade as follows:
 
     - Resource Group: **(Create new) LabRG**
-  
+
     - Location: **Choose a location close to you**.
 
     Select **Review + Create** and then **Create** to deploy the resources.

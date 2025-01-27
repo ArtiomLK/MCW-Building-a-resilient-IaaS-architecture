@@ -1,4 +1,4 @@
-![Microsoft Cloud Workshops](https://github.com/Microsoft/MCW-Template-Cloud-Workshop/raw/main/Media/ms-cloud-workshop.png "Microsoft Cloud Workshops")
+![Microsoft Cloud Workshops](https://github.com/artiomlk/MCW-Template-Cloud-Workshop/raw/main/Media/ms-cloud-workshop.png "Microsoft Cloud Workshops")
 
 <div class="MCWHeader1">
 Building a resilient IaaS architecture
@@ -83,13 +83,13 @@ An amazing trainer:
 
 - Effectively leads the feedback process.
 
-## Whiteboard design session flow 
+## Whiteboard design session flow
 
 Each whiteboard design session uses the following flow:
 
 **Step 1: Review the customer case study (15 minutes)**
 
-Outcome 
+Outcome
 
 Analyze your customer's needs.
 
@@ -177,7 +177,7 @@ At the end of the workshop, you will be better able to design and use resiliency
 
 You will also discuss how to achieve a similar level of resiliency for a PaaS-based implementation the same application, based on Azure App Service and Azure SQL Database. Finally, you will consider the costs associated with both approaches.
 
-## Step 1: Review the customer case study 
+## Step 1: Review the customer case study
 
 **Outcome**
 
@@ -209,13 +209,13 @@ Taking their cue from the AD and Web teams, the Database Administrators have als
 
 ![The SQL and Web Server Current Implementation diagram depicts three virtual machines behind a load balancer and availability set, and a single virtual machine for SQL server with two disks for data.](images/Existing-App.png "SQL and Web Server Current Implementation")
 
-Each of the branch offices are small enough to not require an on-site server infrastructure. These locations have connectivity to the Cheyenne headquarters through a Virtual Private Network (VPN). 
+Each of the branch offices are small enough to not require an on-site server infrastructure. These locations have connectivity to the Cheyenne headquarters through a Virtual Private Network (VPN).
 
 While the Azure deployments have served Contoso well so far, they are concerned about their reliability:
 
 - Agents have reported intermittent issues with the reliability of the claims application. These incidents have been correlated with service health issues of the underlying SQL Server VM.
 
-- Over a recent three-day holiday weekend, there was an incident with the AD DS Domain Controllers where the disk drive housing the AD database filled up and corrupted the database. This prompted a high-priority support call to Microsoft. While the damage was mitigated, the team was fortunate that the consequences were minimal. Retroactively, checks were made on other Azure VM disk drives and there were several of them that were getting close to capacity due to teams not proactively monitoring their servers. 
+- Over a recent three-day holiday weekend, there was an incident with the AD DS Domain Controllers where the disk drive housing the AD database filled up and corrupted the database. This prompted a high-priority support call to Microsoft. While the damage was mitigated, the team was fortunate that the consequences were minimal. Retroactively, checks were made on other Azure VM disk drives and there were several of them that were getting close to capacity due to teams not proactively monitoring their servers.
 
 - At times, various branch offices have experienced connectivity issues over the VPN to Cheyenne. While there is some understanding of these occurrences, there is a desire to increase the stability of the connection as growth continues. Contoso is connected via a Windows Server Routing and Remote Access Service (RRAS) VPN connection to Azure via a Site-to-Site Gateway. They are looking for options to provide redundancy for the hybrid connectivity to Azure due to recent network issues.
 
@@ -225,7 +225,7 @@ As a result, Lewis's team has been given an executive mandate to implement an cl
 
 In parallel with the above, Jordan North, the Senior Development Lead responsible for the claims application, has been working on the next-generation architecture for the claims application. He plans to migrate the application from IaaS to PaaS, using Web Apps for the web tier and Azure SQL Database for the database. Aware of the increased focus on resiliency, he is aware that the PaaS migration project will be stalled if it offers a lower level of resilience than the enhanced IaaS implementation. He is therefore looking to implement an equivalent level of high availability, disaster recovery, and backup.
 
-### Customer needs 
+### Customer needs
 
 1. Redundancy and resiliency for the AD DS domain controller servers, and the web and database servers for the claims application, to deliver the 99.95% or greater SLA required by the business.
 
@@ -241,7 +241,7 @@ In parallel with the above, Jordan North, the Senior Development Lead responsibl
 
 In addition, Contoso require a detailed understanding of the costs associated with each of the above.
 
-### Customer objections 
+### Customer objections
 
 1. Contoso are uncomfortable with any situation that assumes the cloud provider will handle their fail-over.
 
@@ -274,7 +274,7 @@ Directions: With your team, answer the following questions and be prepared to pr
 Directions: With your team, respond to the following questions:
 
 1. How will you provide an SLA in excess of 99.95% (per month) for the overall claims application?
-  
+
    - Consider each application tier: Web, database, and domain controllers.
 
 2. How can you improve the reliability for the Contoso branch office VPN connections?
@@ -355,19 +355,19 @@ Directions: Reconvene with the larger group to hear the facilitator/SME share th
 
 ## Additional references
 
-|    |            |
-|----------|:-------------:|
-| **Description** | **Links** |
-| Microsoft Azure Reference Architectures| <https://docs.microsoft.com/azure/guidance/guidance-architecture> |
-| Azure Resiliency Overview | <https://azure.microsoft.com/features/resiliency/> |
-| Regions and Availability Zones in Azure | <https://docs.microsoft.com/azure/availability-zones/az-overview> | 
-| High availability checklist | <https://docs.microsoft.com/azure/resiliency/resiliency-high-availability-checklist> |
-| Azure resiliency technical guidance | <https://azure.microsoft.com/documentation/articles/resiliency-technical-guidance/> |
+|                                                                                     |                                                                                                                                            |
+| ----------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------: |
+| **Description**                                                                     |                                                                 **Links**                                                                  |
+| Microsoft Azure Reference Architectures                                             |                                     <https://docs.microsoft.com/azure/guidance/guidance-architecture>                                      |
+| Azure Resiliency Overview                                                           |                                             <https://azure.microsoft.com/features/resiliency/>                                             |
+| Regions and Availability Zones in Azure                                             |                                     <https://docs.microsoft.com/azure/availability-zones/az-overview>                                      |
+| High availability checklist                                                         |                            <https://docs.microsoft.com/azure/resiliency/resiliency-high-availability-checklist>                            |
+| Azure resiliency technical guidance                                                 |                            <https://azure.microsoft.com/documentation/articles/resiliency-technical-guidance/>                             |
 | Introduction to Active Directory Domain Services (AD DS) Virtualization (Level 100) | <https://docs.microsoft.com/windows-server/identity/ad-ds/introduction-to-active-directory-domain-services-ad-ds-virtualization-level-100> |
-| Running your AD in Windows Azure | <https://docs.microsoft.com/azure/architecture/reference-architectures/identity/adds-extend-domain> |
-| Running VMs for an N-tier architecture on Azure | <https://docs.microsoft.com/azure/guidance/guidance-architecture> |
-| High availability with VPN Gateway | <https://docs.microsoft.com/azure/vpn-gateway/vpn-gateway-highlyavailable> |
-| Azure Backup documentation | <https://docs.microsoft.com/azure/backup/> |
+| Running your AD in Windows Azure                                                    |                    <https://docs.microsoft.com/azure/architecture/reference-architectures/identity/adds-extend-domain>                     |
+| Running VMs for an N-tier architecture on Azure                                     |                                     <https://docs.microsoft.com/azure/guidance/guidance-architecture>                                      |
+| High availability with VPN Gateway                                                  |                                 <https://docs.microsoft.com/azure/vpn-gateway/vpn-gateway-highlyavailable>                                 |
+| Azure Backup documentation                                                          |                                                 <https://docs.microsoft.com/azure/backup/>                                                 |
 
 # Building a resilient IaaS architecture whiteboard design session trainer guide
 
@@ -421,7 +421,7 @@ Directions: Reconvene with the larger group to hear the facilitator/SME share th
 ## Preferred solution
 
 1. How will you provide an SLA in excess of 99.95% (per month) for the overall claims application?
-  
+
    - Consider each application tier: Web, database, and domain controllers.
 
    **Solution**
@@ -456,12 +456,12 @@ Directions: Reconvene with the larger group to hear the facilitator/SME share th
 
        SQL Servers will have three drive letters: C:\\, F:\\ and G:\\
 
-       | Drive  | Type      |  Purpose | 
-       | ------- | ----------- | ----------------------------------------------------------- |
-       | C:\\   | S10       | OS  | 
-       | D:\\   | Local SSD  | TempDB broken into multiple files (match number of cores) |
-       | F:\\   | P20        | SQL Database Files | 
-       | G:\\   | P20        | SQL Database Log Files |
+       | Drive | Type      | Purpose                                                   |
+       | ----- | --------- | --------------------------------------------------------- |
+       | C:\\  | S10       | OS                                                        |
+       | D:\\  | Local SSD | TempDB broken into multiple files (match number of cores) |
+       | F:\\  | P20       | SQL Database Files                                        |
+       | G:\\  | P20       | SQL Database Log Files                                    |
 
        >**Note:** Never use the E:\\ drive on an Azure VM as some Azure Regions have Host machines that contain DVD Drives.
 
@@ -487,7 +487,7 @@ Directions: Reconvene with the larger group to hear the facilitator/SME share th
 
    - The RRAS VPN servers can be deployed in a cluster ([here's how](https://docs.microsoft.com/windows-server/remote/remote-access/ras/cluster/deploy-remote-access-in-cluster)). Alternatively, the servers could be upgraded to dedicated hardware VPN devices.
 
-   *ISP Internet connection:* 
+   *ISP Internet connection:*
 
    - You need to create multiple S2S VPN connections from each on-premises VPN device to Azure. When you connect multiple VPN devices from the same on-premises network to Azure, you need to create one local network gateway for each VPN device, and one connection from your Azure VPN gateway to the local network gateway.
 
@@ -599,7 +599,7 @@ Directions: Reconvene with the larger group to hear the facilitator/SME share th
 
     - Azure Monitor for VMs provides in-depth monitoring for Azure VMs, VM scale sets, and non-Azure servers running on-premises or in other clouds.
 
-    - Azure Monitor for VMs is a Log Analytics-based solution. As such, initial on-boarding requires installing the Log Analytics agent and registering it to send data to a Log Analytics workspace. 
+    - Azure Monitor for VMs is a Log Analytics-based solution. As such, initial on-boarding requires installing the Log Analytics agent and registering it to send data to a Log Analytics workspace.
 
     - In addition to the Log Analytics agent, for full functionality the dependency agent should also be installed. This captures process and network connection data from the VM enabling the inbound and outbound VM dependencies to be mapped. This is an optional feature which may not be necessary on all servers.
 
@@ -613,8 +613,8 @@ Directions: Reconvene with the larger group to hear the facilitator/SME share th
 
     *SQL Monitoring*
 
-    - SQL metrics and logs can be gathered via Log Analytics using the above mechanism, by simply configuring the metrics required. 
-    
+    - SQL metrics and logs can be gathered via Log Analytics using the above mechanism, by simply configuring the metrics required.
+
     - DB experts should be engaged to define the precise logs and metrics required, and how alerts should be configured (details are out of scope for this exercise).
 
     *Azure Backup*
@@ -644,7 +644,7 @@ Directions: Reconvene with the larger group to hear the facilitator/SME share th
 *How is high availability provided by the Web Application and SQL Database?*
 
 - Azure Web Apps provide built-in high availability, natively within the platform. No special configuration is required.
-  
+
 - Azure SQL Database also provides built-in high availability. There are two models:
 
    - Standard availability (used by the Basic, Standard and General Purpose tiers) relies on a stateless compute layer backed by Azure blob storage as a resilient data layer. Heavy workloads can suffer performance degradation during failure due to cold cache process starts.
@@ -670,11 +670,11 @@ Directions: Reconvene with the larger group to hear the facilitator/SME share th
 
 Yes. See table.
 
-| Service | RTO | RPO |
-|:--------|-----|-----|
-| Web App |  < 5 min*   |  n/a (stateless)   |
-| SQL DB  | [1 hr (auto) / 30 sec (manual)](https://docs.microsoft.com/en-us/azure/azure-sql/database/business-continuity-high-availability-disaster-recover-hadr-overview)   |  [5 sec](https://docs.microsoft.com/azure/azure-sql/database/business-continuity-high-availability-disaster-recover-hadr-overview)  |
-|         |     |     |
+| Service | RTO                                                                                                                                                             | RPO                                                                                                                               |
+| :------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| Web App | < 5 min*                                                                                                                                                        | n/a (stateless)                                                                                                                   |
+| SQL DB  | [1 hr (auto) / 30 sec (manual)](https://docs.microsoft.com/en-us/azure/azure-sql/database/business-continuity-high-availability-disaster-recover-hadr-overview) | [5 sec](https://docs.microsoft.com/azure/azure-sql/database/business-continuity-high-availability-disaster-recover-hadr-overview) |
+|         |                                                                                                                                                                 |                                                                                                                                   |
 
 \* Time to start secondary web app and for endpoint failover via Traffic Manager or Front Door health probes.
 
@@ -706,38 +706,38 @@ Pricing Azure solutions is a complex task. The example solution below includes m
 
 *Infrastructure*
 
-| Component     | Site          | Details / Assumptions                                           | Monthly Cost (USD) |
-|:--------------|:--------------|:--------------------------------------------------------------------------|---------:|
-| DC VMs        | Central US    | 2 VMs, Windows, D2s_v3, 1 year reservation, 2x Premium SSD 128 GiB per VM | $314.50  |
-| DC VMs        | East US 2     | 2 VMs, Windows, D2s_v3, 1 year reservation, 2x Premium SSD 128 GiB per VM | $289.67  |
-| VPN Gateway   | Central US    | VpnGw2AZ, 730 hours, 0 additional tunnels, 100 GB traffic                 | $419.98  |
-| VPN Gateway   | East US 2     | VpnGw2AZ, 730 hours, 0 additional tunnels, 100 GB traffic                 | $419.98  |
-| Log Analytics | Central US    | 3GB per VM, 180 day retention                                             | $  7.08  |
-| Log Analytics | East US 2   | 3GB per VM, 180 day retention                                             | $  7.08  |
-| Alert Rules   | Central US    | 2 VMs x 10 metrics + 5 log signals @ 5 minutes                            | $  9.50  |
-| Alert Rules   | East US  2  | 2 VMs x 10 metrics + 5 log signals @ 5 minutes                            | $  9.50  |
-| **Total** | | | **$1,477.30** |
-| | | | |
+| Component     | Site       | Details / Assumptions                                                     | Monthly Cost (USD) |
+| :------------ | :--------- | :------------------------------------------------------------------------ | -----------------: |
+| DC VMs        | Central US | 2 VMs, Windows, D2s_v3, 1 year reservation, 2x Premium SSD 128 GiB per VM |            $314.50 |
+| DC VMs        | East US 2  | 2 VMs, Windows, D2s_v3, 1 year reservation, 2x Premium SSD 128 GiB per VM |            $289.67 |
+| VPN Gateway   | Central US | VpnGw2AZ, 730 hours, 0 additional tunnels, 100 GB traffic                 |            $419.98 |
+| VPN Gateway   | East US 2  | VpnGw2AZ, 730 hours, 0 additional tunnels, 100 GB traffic                 |            $419.98 |
+| Log Analytics | Central US | 3GB per VM, 180 day retention                                             |            $  7.08 |
+| Log Analytics | East US 2  | 3GB per VM, 180 day retention                                             |            $  7.08 |
+| Alert Rules   | Central US | 2 VMs x 10 metrics + 5 log signals @ 5 minutes                            |            $  9.50 |
+| Alert Rules   | East US  2 | 2 VMs x 10 metrics + 5 log signals @ 5 minutes                            |            $  9.50 |
+| **Total**     |            |                                                                           |      **$1,477.30** |
+|               |            |                                                                           |                    |
 
 *Claims Application - Primary Site and BCDR*
 
-| Component     | Site          | Details / Assumptions                                           | Monthly Cost (USD) |
-|:--------------|:--------------|:--------------------------------------------------------------------------|---------:|
-| Web VMs       | Central US    | 2 VMs, Windows, D4s_v3, 1 year reservation, 1x Premium SSD 128 GiB per VM | $510.56  |
-| SQL VMs       | Central US    | 2 VMs (1x primary + 1x secondary), Windows, E4as_v4, 1 year reservation, SQL Enterprise, 2x Premium SSD 512GiB per VM      | $1,906.02 |
-| Bandwidth     | Central US    | 500 GB                                                                    | $ 43.07  |
-| Log Analytics | Central US    | 3GB per VM, 180 day retention                                             | $ 27.96  |
-| Alert Rules   | Central US    | 2 VMs x 10 metrics + 5 log signals @ 5 minutes                            | $ 11.50  |
-| VM Backup     | Central US    | 2x Web VMs, 80GB each, GRS, low churn, 30 daily/26 weekly/24 monthly/3 yearly RPs, steady state | $ 54.69 |
-| SQL Backup    | Central US    | 300 GB, GRS, high churn, 30 daily/6 weekly/12 monthly RPs, steady state | $695.28 |
-| ASR           | East US 2   | 2 instances                                                               | $ 50.00  |
-| SQL VMs (DR)  | East US 2    | 2 VMs (1x primary + 1x secondary), Windows, E4as_v4, 1 year reservation, SQL Enterprise, 2x Premium SSD 512GiB per VM      | $1,613.64 |
-| Traffic Manager | Global      | 10M DNS queries, 2 endpoints                                              | $  6.12  |
-| VNet          | East US 2     | Global peering bandwidth for SQL replication to East US 2, 200GB          | $ 14.00  |
-| Log Analytics | East US 2   | 3GB per VM, 180 day retention                                             | $  7.08  |
-| Alert Rules   | East US 2   | 2 VMs x 10 metrics + 5 log signals @ 5 minutes                            | $  9.50  |
-| **Total** | | | **$4,949.42** | 
-| | | | |
+| Component       | Site       | Details / Assumptions                                                                                                 | Monthly Cost (USD) |
+| :-------------- | :--------- | :-------------------------------------------------------------------------------------------------------------------- | -----------------: |
+| Web VMs         | Central US | 2 VMs, Windows, D4s_v3, 1 year reservation, 1x Premium SSD 128 GiB per VM                                             |            $510.56 |
+| SQL VMs         | Central US | 2 VMs (1x primary + 1x secondary), Windows, E4as_v4, 1 year reservation, SQL Enterprise, 2x Premium SSD 512GiB per VM |          $1,906.02 |
+| Bandwidth       | Central US | 500 GB                                                                                                                |            $ 43.07 |
+| Log Analytics   | Central US | 3GB per VM, 180 day retention                                                                                         |            $ 27.96 |
+| Alert Rules     | Central US | 2 VMs x 10 metrics + 5 log signals @ 5 minutes                                                                        |            $ 11.50 |
+| VM Backup       | Central US | 2x Web VMs, 80GB each, GRS, low churn, 30 daily/26 weekly/24 monthly/3 yearly RPs, steady state                       |            $ 54.69 |
+| SQL Backup      | Central US | 300 GB, GRS, high churn, 30 daily/6 weekly/12 monthly RPs, steady state                                               |            $695.28 |
+| ASR             | East US 2  | 2 instances                                                                                                           |            $ 50.00 |
+| SQL VMs (DR)    | East US 2  | 2 VMs (1x primary + 1x secondary), Windows, E4as_v4, 1 year reservation, SQL Enterprise, 2x Premium SSD 512GiB per VM |          $1,613.64 |
+| Traffic Manager | Global     | 10M DNS queries, 2 endpoints                                                                                          |            $  6.12 |
+| VNet            | East US 2  | Global peering bandwidth for SQL replication to East US 2, 200GB                                                      |            $ 14.00 |
+| Log Analytics   | East US 2  | 3GB per VM, 180 day retention                                                                                         |            $  7.08 |
+| Alert Rules     | East US 2  | 2 VMs x 10 metrics + 5 log signals @ 5 minutes                                                                        |            $  9.50 |
+| **Total**       |            |                                                                                                                       |      **$4,949.42** |
+|                 |            |                                                                                                                       |                    |
 
 >**Note:**
 >- SQL Server Enterprise licensing is required for Always On Availability Groups
@@ -746,19 +746,19 @@ Pricing Azure solutions is a complex task. The example solution below includes m
 
 *PaaS Solution*
 
-| Component     | Site          | Details / Assumptions                                           | Monthly Cost (USD) |
-|:--------------|:--------------|:--------------------------------------------------------------------------|---------:|
-| Web App       | Central US    | 2 instances, S3 tier                                                      | $584.00  |
-| Web App (DR)  | East US 2     | As above                                                                  | $584.00  |
-| SQL Database  | Central US    | Single DB, General Purpose, 4 vCores, PAYG, 2 instances, 500GB. Backup: RA-GRS, 1TB point-in-time, 300GB average backup size, 26 weeks/12 months/3 years retention  | $1,719.54 |
-| SQL Database (DR)  | East US 2     | As above, no backup                                                | $1,530.25  |
-| Traffic Manager | Global      | 10M DNS queries, 2 endpoints                                              | $  6.12  |
-| VNet          | Central US    | Global peering bandwidth for SQL replication to East US 2, 200GB          | $ 14.00  |
-| Bandwidth     | Central US    | 500 GB                                                                    | $ 43.07  |
-| App Insights  | Central US    | 100GB/month, 5 multi-step web tests                                       | $312.20  |
-| Alert Rules   | Central US    | 20 metrics + 10 log signals x 5 minutes                                   | $ 17.00  |
-| **Total** | | | **$4,810.17** | 
-| | | | |
+| Component         | Site       | Details / Assumptions                                                                                                                                              | Monthly Cost (USD) |
+| :---------------- | :--------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------- | -----------------: |
+| Web App           | Central US | 2 instances, S3 tier                                                                                                                                               |            $584.00 |
+| Web App (DR)      | East US 2  | As above                                                                                                                                                           |            $584.00 |
+| SQL Database      | Central US | Single DB, General Purpose, 4 vCores, PAYG, 2 instances, 500GB. Backup: RA-GRS, 1TB point-in-time, 300GB average backup size, 26 weeks/12 months/3 years retention |          $1,719.54 |
+| SQL Database (DR) | East US 2  | As above, no backup                                                                                                                                                |          $1,530.25 |
+| Traffic Manager   | Global     | 10M DNS queries, 2 endpoints                                                                                                                                       |            $  6.12 |
+| VNet              | Central US | Global peering bandwidth for SQL replication to East US 2, 200GB                                                                                                   |            $ 14.00 |
+| Bandwidth         | Central US | 500 GB                                                                                                                                                             |            $ 43.07 |
+| App Insights      | Central US | 100GB/month, 5 multi-step web tests                                                                                                                                |            $312.20 |
+| Alert Rules       | Central US | 20 metrics + 10 log signals x 5 minutes                                                                                                                            |            $ 17.00 |
+| **Total**         |            |                                                                                                                                                                    |      **$4,810.17** |
+|                   |            |                                                                                                                                                                    |                    |
 
 This compares with a monthly total for the IaaS implementation of **$4,949.42** (excluding infra costs, on the assumption these are still required for other applications).
 

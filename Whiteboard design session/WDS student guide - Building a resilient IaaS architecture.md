@@ -1,4 +1,4 @@
-![Microsoft Cloud Workshops](https://github.com/Microsoft/MCW-Template-Cloud-Workshop/raw/main/Media/ms-cloud-workshop.png "Microsoft Cloud Workshops")
+![Microsoft Cloud Workshops](https://github.com/artiomlk/MCW-Template-Cloud-Workshop/raw/main/Media/ms-cloud-workshop.png "Microsoft Cloud Workshops")
 
 <div class="MCWHeader1">
 Building a resilient IaaS architecture
@@ -148,7 +148,7 @@ Directions:  With your team, answer the following questions and be prepared to p
 Directions: With your team, respond to the following questions:
 
 1. How will you provide an SLA in excess of 99.95% (per month) for the overall claims application?
-  
+
     - Consider each application tier: Web, database, and domain controllers.
 
 2. How can you improve the reliability for the Contoso branch office VPN connections?
@@ -229,16 +229,16 @@ Directions: Reconvene with the larger group to hear the facilitator/SME share th
 
 ##  Additional references
 
-|    |            |
-|----------|:-------------:|
-| **Description** | **Links** |
-| Microsoft Azure Reference Architectures| <https://docs.microsoft.com/azure/guidance/guidance-architecture> |
-| Azure Resiliency Overview | <https://azure.microsoft.com/features/resiliency/> |
-| Regions and Availability Zones in Azure | <https://docs.microsoft.com/azure/availability-zones/az-overview> | 
-| High availability checklist | <https://docs.microsoft.com/azure/resiliency/resiliency-high-availability-checklist> |
-| Azure resiliency technical guidance | <https://azure.microsoft.com/documentation/articles/resiliency-technical-guidance/> |
+|                                                                                     |                                                                                                                                            |
+| ----------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------: |
+| **Description**                                                                     |                                                                 **Links**                                                                  |
+| Microsoft Azure Reference Architectures                                             |                                     <https://docs.microsoft.com/azure/guidance/guidance-architecture>                                      |
+| Azure Resiliency Overview                                                           |                                             <https://azure.microsoft.com/features/resiliency/>                                             |
+| Regions and Availability Zones in Azure                                             |                                     <https://docs.microsoft.com/azure/availability-zones/az-overview>                                      |
+| High availability checklist                                                         |                            <https://docs.microsoft.com/azure/resiliency/resiliency-high-availability-checklist>                            |
+| Azure resiliency technical guidance                                                 |                            <https://azure.microsoft.com/documentation/articles/resiliency-technical-guidance/>                             |
 | Introduction to Active Directory Domain Services (AD DS) Virtualization (Level 100) | <https://docs.microsoft.com/windows-server/identity/ad-ds/introduction-to-active-directory-domain-services-ad-ds-virtualization-level-100> |
-| Running your AD in Windows Azure | <https://docs.microsoft.com/azure/architecture/reference-architectures/identity/adds-extend-domain> |
-| Running VMs for an N-tier architecture on Azure | <https://docs.microsoft.com/azure/guidance/guidance-architecture> |
-| High availability with VPN Gateway | <https://docs.microsoft.com/azure/vpn-gateway/vpn-gateway-highlyavailable> |
-| Azure Backup documentation | <https://docs.microsoft.com/azure/backup/> |
+| Running your AD in Windows Azure                                                    |                    <https://docs.microsoft.com/azure/architecture/reference-architectures/identity/adds-extend-domain>                     |
+| Running VMs for an N-tier architecture on Azure                                     |                                     <https://docs.microsoft.com/azure/guidance/guidance-architecture>                                      |
+| High availability with VPN Gateway                                                  |                                 <https://docs.microsoft.com/azure/vpn-gateway/vpn-gateway-highlyavailable>                                 |
+| Azure Backup documentation                                                          |                                                 <https://docs.microsoft.com/azure/backup/>                                                 |

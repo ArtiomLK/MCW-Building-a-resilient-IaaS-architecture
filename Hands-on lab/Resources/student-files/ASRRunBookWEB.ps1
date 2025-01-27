@@ -31,14 +31,8 @@ workflow ASRWEBFailover
 
 Try
  {
-    #Logging in to Azure...
-
     "Logging in to Azure..."
-    $Conn = Get-AutomationConnection -Name AzureRunAsConnection
-     Add-AzAccount -ServicePrincipal -Tenant $Conn.TenantID -ApplicationId $Conn.ApplicationID -CertificateThumbprint $Conn.CertificateThumbprint
-
-    "Selecting Azure subscription..."
-    Select-AzSubscription -SubscriptionId $Conn.SubscriptionID -TenantId $Conn.tenantid
+		Connect-AzAccount -Identity
  }
 Catch
  {
@@ -108,7 +102,6 @@ Catch
 			$WEBVM2NIC | Set-AzNetworkInterfaceIpConfig -Name $WEBVM2NIC.IpConfigurations[0].Name -LoadBalancerBackendAddressPoolId $loadBalancer.BackendAddressPools.id -SubnetId $subnet.id
 			$WEBVM2NIC | Set-AzNetworkInterface
 			Write-output "The WebVMs have been added to the External Loadbalancer at the Primary Site......"
-
 		}
-    }
+	}
 }
